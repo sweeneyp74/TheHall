@@ -1,0 +1,15 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Materials/PortalCenter.png" type="Texture" id=1]
+
+[resource]
+albedo_texture = ExtResource( 1 )
+emission_enabled = true
+emission = Color( 0.136331, 0.0475464, 0.148438, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = ExtResource( 1 )
+uv1_scale = Vector3( 4, 4, 4 )
+uv1_triplanar = true
+uv1_triplanar_sharpness = 0.757858
