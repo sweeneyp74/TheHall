@@ -7,15 +7,15 @@
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 material = ExtResource( 2 )
-margin_right = 1588.0
-margin_bottom = 885.0
-stretch = true
+margin_right = 4086.0
+margin_bottom = 2334.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 1588, 885 )
+size = Vector2( 4086, 2334 )
+size_override_stretch = true
 handle_input_locally = false
 render_target_update_mode = 3
 

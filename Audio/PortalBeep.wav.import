@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/PortalBeep.wav-9a663a169417b5a10bca8603d108b885.sample"
+
+[deps]
+
+source_file="res://Audio/PortalBeep.wav"
+dest_files=[ "res://.import/PortalBeep.wav-9a663a169417b5a10bca8603d108b885.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

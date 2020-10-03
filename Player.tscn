@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Audio/footstep.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/LandOnGround.wav" type="AudioStream" id=3]
+[ext_resource path="res://PlayerRayCast.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.542652
+radius = 0.55
+
+[sub_resource type="AudioStreamRandomPitch" id=3]
+audio_stream = ExtResource( 2 )
+random_pitch = 1.2
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+audio_stream = ExtResource( 3 )
+random_pitch = 1.5
+
+[sub_resource type="AudioStreamRandomPitch" id=4]
+audio_stream = ExtResource( 3 )
+random_pitch = 1.2
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 33
 script = ExtResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.544207, 0 )
+transform = Transform( 1, 0, 0, 0, 0.286742, 0.958008, 0, -0.958008, 0.286742, 0, 0.544207, 0 )
 current = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -21,3 +36,21 @@ shape = SubResource( 1 )
 light_color = Color( 0.709804, 0.698039, 0.564706, 1 )
 omni_range = 4.0
 omni_attenuation = 2.37841
+
+[node name="FootstepPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 3 )
+volume_db = 4.039
+
+[node name="LandPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 2 )
+volume_db = -15.0
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+script = ExtResource( 4 )
+
+[node name="JumpPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 4 )
+volume_db = -15.0
+pitch_scale = 1.2

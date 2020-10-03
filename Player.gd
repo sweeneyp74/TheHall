@@ -16,18 +16,26 @@ var rotation_helper
 
 var MOUSE_SENSITIVITY = 0.1
 
+#footstep vars
+var footstepTimeElapsed = 0.0
+var footstepDelay = 0.4
+
+var landing : bool
+
 func _ready():
 	camera = $Camera
 #	rotation_helper = transform
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _physics_process(delta):
+func _physics_process(delta):	
+	process_audio(delta)
 	process_input()
-	process_movement(delta)
+	process_movement(delta)	
 
 func process_input():
-
+	if Input.is_action_pressed("toggle_fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
 	# ----------------------------------
 	# Walking
 	dir = Vector3()
@@ -47,8 +55,8 @@ func process_input():
 	input_movement_vector = input_movement_vector.normalized()
 
 	# Basis vectors are already normalized.
-	dir += -cam_xform.basis.z * input_movement_vector.y
-	dir += cam_xform.basis.x * input_movement_vector.x
+	dir += -global_transform.basis.z * input_movement_vector.y
+	dir += global_transform.basis.x * input_movement_vector.x
 	# ----------------------------------
 
 	# ----------------------------------
@@ -56,6 +64,7 @@ func process_input():
 	if is_on_floor():
 		if Input.is_action_just_pressed("movement_jump"):
 			vel.y = JUMP_SPEED
+			$JumpPlayer.play()
 	# ----------------------------------
 
 	# ----------------------------------
@@ -88,6 +97,7 @@ func process_movement(delta):
 	hvel = hvel.linear_interpolate(target, accel * delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
+
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 func _input(event):
@@ -99,5 +109,28 @@ func _input(event):
 #		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		
 		camera.rotation_degrees.x -= event.relative.y * MOUSE_SENSITIVITY
-		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -80, 80)
+		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -89, 89)
 		self.rotation_degrees.y -= event.relative.x * MOUSE_SENSITIVITY
+
+func process_audio(delta):
+	
+	var isGrounded = $RayCast.is_colliding()
+	
+	if(!isGrounded || abs(vel.length()) < 0.5):
+		footstepTimeElapsed = 0.0
+	else:
+		footstepTimeElapsed += delta
+	
+	if(footstepTimeElapsed >= footstepDelay):
+		$FootstepPlayer.play(0.0)
+		footstepTimeElapsed = 0.0
+		
+	if isGrounded:
+		if landing:
+			print_debug(vel)
+			$LandPlayer.play()
+			landing = false
+	else:
+		if !landing:
+			landing = true
+			#print_debug(vel)
