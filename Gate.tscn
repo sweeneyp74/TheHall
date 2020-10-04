@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Models/Wall.glb" type="PackedScene" id=1]
 [ext_resource path="res://Materials/StoneTile.tres" type="Material" id=2]
 [ext_resource path="res://Materials/WoodTexture.tres" type="Material" id=3]
+[ext_resource path="res://Gate.gd" type="Script" id=4]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.327329, 1.36253, 1.45196 )
@@ -10,7 +11,25 @@ extents = Vector3( 0.327329, 1.36253, 1.45196 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.88131, 1.36411, 0.251637 )
 
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.192021, 1.6246, 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "GateOpen"
+length = 3.0
+tracks/0/type = "transform"
+tracks/0/path = NodePath("Gate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 3, 1, 0, 2.40909, 0, 0, 0, 0, 1, 1, 1, 1 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.719251, 1, 1 )
+
 [node name="Wall" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
 
 [node name="Wall" parent="." index="0"]
 material/0 = ExtResource( 2 )
@@ -35,3 +54,19 @@ shape = SubResource( 2 )
 
 [node name="Gate" parent="." index="1"]
 material/0 = ExtResource( 3 )
+
+[node name="StaticBody" type="StaticBody" parent="Gate" index="0"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Gate/StaticBody" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.411483, -0.7203, 0 )
+shape = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+anims/GateOpen = SubResource( 4 )
+
+[node name="Area" type="Area" parent="." index="3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.619099, -1.19645, 0 )
+shape = SubResource( 5 )
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

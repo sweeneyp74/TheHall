@@ -24,3 +24,6 @@ func _process(delta):
 
 func _on_KeyArea_body_entered(body):
 	body.pick_up_key(Key)
+	$KeyAudio.play()
+	$Cube.visible = false
+	$KeyArea/CollisionShape.disabled = true
