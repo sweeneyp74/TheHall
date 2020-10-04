@@ -20,6 +20,9 @@ var MOUSE_SENSITIVITY = 0.1
 var footstepTimeElapsed = 0.0
 var footstepDelay = 0.4
 
+var bSilverKey = false
+var bGoldKey = false
+
 var landing : bool
 
 func _ready():
@@ -134,3 +137,11 @@ func process_audio(delta):
 		if !landing:
 			landing = true
 			#print_debug(vel)
+			
+func pick_up_key(type):
+	print_debug("key picked up: " + str(type) )
+	if type == 0:
+		bSilverKey = true
+	elif type == 1:
+		bGoldKey = true
+		
