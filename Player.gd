@@ -70,7 +70,8 @@ func process_input():
 
 	# ----------------------------------
 	# Jumping
-	if is_on_floor():
+	var isGrounded = $RayCast.is_colliding()
+	if isGrounded:
 		if Input.is_action_just_pressed("movement_jump"):
 			vel.y = JUMP_SPEED
 			$JumpPlayer.play()
