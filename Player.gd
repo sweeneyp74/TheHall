@@ -24,6 +24,7 @@ var bSilverKey = false
 var bGoldKey = false
 
 var landing : bool
+var bRopeClimb = false
 
 func _ready():
 	camera = $Camera
@@ -34,6 +35,11 @@ func _ready():
 func _physics_process(delta):	
 	process_audio(delta)
 	process_input()
+	
+	if(bRopeClimb):
+		move_and_slide(Vector3(0,20 * delta, 0), Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
+		return
+		
 	process_movement(delta)	
 
 func process_input():
@@ -142,6 +148,19 @@ func pick_up_key(type):
 	print_debug("key picked up: " + str(type) )
 	if type == 0:
 		bSilverKey = true
+		$Control/SilverKeyImg.visible = true
 	elif type == 1:
 		bGoldKey = true
-		
+		$Control/GoldKeyImg.visible = true
+
+func climbRope():
+	bRopeClimb = true
+
+func needSilver():
+	$Control/NeedSilverText.visible = true
+func needGold():
+	$Control/NeedGoldText.visible = true
+
+func hideKeyText():
+	$Control/NeedGoldText.visible = false
+	$Control/NeedSilverText.visible = false

@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Models/Treasure.glb" type="PackedScene" id=1]
+[ext_resource path="res://Audio/TreasureSound.wav" type="AudioStream" id=2]
+[ext_resource path="res://Models/Treasure.gd" type="Script" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.521569, 0, 1, 1 )
@@ -10,8 +12,24 @@ emission_energy = 3.06
 emission_operator = 0
 emission_on_uv2 = false
 
+[sub_resource type="SphereShape" id=2]
+radius = 0.498262
+
 [node name="Treasure" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
 [node name="Cone" parent="." index="0"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 material/0 = SubResource( 1 )
+
+[node name="TreasureSound" type="AudioStreamPlayer" parent="." index="1"]
+stream = ExtResource( 2 )
+pitch_scale = 0.75
+
+[node name="Area" type="Area" parent="." index="2"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape" type="CollisionShape" parent="Area" index="0"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

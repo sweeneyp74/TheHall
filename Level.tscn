@@ -7,7 +7,7 @@
 [ext_resource path="res://Gate.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Models/Key.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Models/Treasure.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Models/Treasure.gd" type="Script" id=8]
+[ext_resource path="res://Models/rope.tscn" type="PackedScene" id=8]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -303,6 +303,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, -2 )
 [node name="GroundPillar68" parent="Config1" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -2 )
 
+[node name="Key2" parent="Config1" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.65483, 6.62536, 0.00320387 )
+KeyColor = Color( 0.941176, 0.941176, 0.941176, 1 )
+
 [node name="Config2" type="Spatial" parent="."]
 
 [node name="GroundPillar" parent="Config2" instance=ExtResource( 1 )]
@@ -385,6 +389,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -13, 1 )
 
 [node name="GroundPillar2" parent="Config2" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -3, 3 )
+
+[node name="Key" parent="Config2" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8886, -0.846146, 0.0442836 )
+Key = 1
+KeyColor = Color( 0.945098, 1, 0, 1 )
+
+[node name="Wall" parent="Config2" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7956, 0.918966, 0 )
 
 [node name="Config3" type="Spatial" parent="."]
 
@@ -568,6 +580,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -13, 23 )
 [node name="GroundPillar60" parent="Config3" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -19, 23 )
 
+[node name="Wall2" parent="Config3" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.01158, 6.92912, 18.8089 )
+Key = 1
+
+[node name="Treasure" parent="Config3" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0211277, 5.50856, 21.9524 )
+
 [node name="Portal1" parent="." instance=ExtResource( 2 )]
 transform = Transform( -1.5, 0, 5.84122e-07, 0, 1.5, 0, -5.84122e-07, 0, -1.5, -11.507, 6.05443, 0.0190085 )
 OTHER_PORTAL = NodePath("../Portal2")
@@ -582,28 +601,13 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 3 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.301, 0 )
-spot_range = 12.0
-spot_angle = 64.242
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 27.3809, 0 )
+spot_range = 23.8913
+spot_angle = 19.9393
 
-[node name="Treasure" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0211277, 5.50856, 21.8441 )
-script = ExtResource( 8 )
-
-[node name="Key" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8886, -0.846146, 0.0442836 )
-Key = 1
-KeyColor = Color( 0.945098, 1, 0, 1 )
-
-[node name="Key2" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.65683, -4.35156, 0.00596988 )
-KeyColor = Color( 0.941176, 0.941176, 0.941176, 1 )
-
-[node name="Wall" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7956, 0.918966, 0 )
-
-[node name="Wall2" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.01158, 6.92912, 18.8089 )
-Key = 1
+[node name="rope" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0441966, 5.43404, -0.858171 )
+[connection signal="treasureSignal" from="Config3/Treasure" to="rope" method="_on_Treasure_treasureSignal"]
 [connection signal="teleported_signal" from="Portal1" to="." method="_on_Portal1_teleported_signal"]
 [connection signal="teleported_signal" from="Portal2" to="." method="_on_Portal2_teleported_signal"]
+[connection signal="LevelComplete" from="rope" to="." method="_on_rope_LevelComplete"]

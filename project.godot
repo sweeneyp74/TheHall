@@ -15,10 +15,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="The Hall"
+config/name="The Hall Of Anubis"
 config/description="Can you escape the endless hall?"
 run/main_scene="res://GameWrapper.tscn"
-config/icon="res://icon.png"
+config/icon="res://UI/TreasureImage.png"
 
 [input]
 

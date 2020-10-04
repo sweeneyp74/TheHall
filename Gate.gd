@@ -28,9 +28,20 @@ func _on_Area_body_entered(body):
 		if body.bSilverKey:
 			print_debug("silver key! opening")
 			$AnimationPlayer.play("GateOpen")
+			$GateSound.play()
 			bPlayedAnimation = true
+		else:
+			body.needSilver()
 	if Key == KeyType.GoldKey:
 		if body.bGoldKey:
 			print_debug("gold key! opening")
 			$AnimationPlayer.play("GateOpen")
+			$GateSound.play()
 			bPlayedAnimation = true
+		else:
+			body.needGold()
+		
+
+
+func _on_Area_body_exited(body):
+	body.hideKeyText()

@@ -3,7 +3,7 @@
 [ext_resource path="res://RootScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Materials/pp_Pixelate.tres" type="Material" id=2]
 
-[node name="Node2D" type="Node2D"]
+[node name="GameTop" type="Node2D"]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 material = ExtResource( 2 )
