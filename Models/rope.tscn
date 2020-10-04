@@ -33,4 +33,9 @@ disabled = true
 [node name="RopeNoise" type="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource( 4 )
 pitch_scale = 0.95
+
+[node name="Timer" type="Timer" parent="." index="3"]
+wait_time = 8.0
+one_shot = true
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

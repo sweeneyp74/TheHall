@@ -30,7 +30,11 @@ func _process(delta):
 		if(Input.is_key_pressed(KEY_SPACE)):
 			add_child(Player)
 			remove_child($Control)
+			didLoadLevel = true
 
 
 func _on_Level1_endGame():
-	pass
+	print_debug("play the end scene")
+	Control2.visible = true
+	$Control2/StoryText/AnimationPlayer.play("ScrollTextOutro")
+	remove_child(Player)

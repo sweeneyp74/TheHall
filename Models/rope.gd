@@ -22,9 +22,15 @@ func _on_Area_body_entered(body):
 	print_debug("rope touched")
 	body.climbRope()
 	$RopeNoise.play()
+	$Timer.start()
 
 
 func _on_Treasure_treasureSignal():
 	self.visible = true
 	$Area/CollisionShape.disabled = false
+	#emit_signal("LevelComplete")
+
+
+func _on_Timer_timeout():
+	$RopeNoise.stop()
 	emit_signal("LevelComplete")
